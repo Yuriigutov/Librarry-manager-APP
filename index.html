@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Manager App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/intro.js/introjs.css">
+    <link rel="shortcut icon" href="images/Favicon.png" type="image/x-icon">
+</head>
+<body>
+    <div class="container">
+        <h1>Library Manager App</h1>
+        <form id="add-book-form">
+            <input type="text" id="title" placeholder="Title" required>
+            <input type="text" id="author" placeholder="Author" required>
+            <input type="text" id="genre" placeholder="Genre" required>
+            <input type="text" id="year" placeholder="Year of Release" required>
+            <input type="text" id="status" placeholder="Reading Status" required>
+            <button type="submit">Add Book</button>
+        </form>
+
+        <form id="filter-form">
+            <input type="text" id="filter-title" placeholder="Filter by Title">
+            <input type="text" id="filter-author" placeholder="Filter by Author">
+            <button type="submit">Filter</button>
+        </form>
+
+        <form id="delete-author-form">
+            <input type="text" id="delete-author" placeholder="Author to delete" required>
+            <button type="submit">Delete Author</button>
+        </form>
+        
+
+        <button id="export-books">Export Books</button>
+
+        <div id="book-list"></div>
+    </div>
+    <script src="script.js"></script>
+    <script src="https://unpkg.com/intro.js/intro.js"></script>
+
+    <script>
+        introJs.tour().setOptions({
+            steps: [
+                {
+                    intro: "Welcome to the Library Manager App! Let's take a quick tour &#128521;"
+                },
+                {
+                    element: document.querySelector('#title'),
+                    intro: "Here, you need to enter the title of the book &#128522;"
+                },
+                {
+                    element: document.querySelector('#author'),
+                    intro: 'Here, you need to enter the author of the book &#128523;'
+                },
+                {
+                    element: document.querySelector('#genre'),
+                    intro: 'Here, you need to enter the genre of the book &#128579;'
+                },
+                {
+                    element: document.querySelector('#year'),
+                    intro: 'Here, you need to enter the year of manufacture &#128541;'
+                },
+                {
+                    element: document.querySelector('#status'),
+                    intro: 'Here, you need to enter your status of reading the book, for example: read, in progress or almost read or not interested &#129321; '
+                }
+            ],
+           
+        }).start();
+    </script>
+</body>
+</html>
