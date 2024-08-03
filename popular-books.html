@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popular Books</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="images/Favicon.png" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo-link">
+                <img src="./images/icons8-book.gif" alt="Logo" class="logo">
+                <span class="home-text">Home</span>
+            </a>
+            <ul>
+                <li><a href="./popular-books.html">Popular Books</a></li>
+                <li><a href="#register" id="signup-link">Sign up/Sign in</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Popular Books &#128218;</h1>
+        <div class="popular-books-list">
+            <div class="book-item">
+                <p><strong>Title:</strong> The Great Gatsby</p>
+                <p><strong>Author:</strong> F. Scott Fitzgerald</p>
+                <p><strong>Genre:</strong> Classic</p>
+                <p><strong>Year of Release:</strong> 1925</p>
+                <p><strong>Reading Status:</strong> Unread</p>
+                <button onclick="addBookToLibrary('The Great Gatsby', 'F. Scott Fitzgerald', 'Classic', 1925, 'Unread')">Add Book</button>
+            </div>
+            <div class="book-item">
+                <p><strong>Title:</strong> To Kill a Mockingbird</p>
+                <p><strong>Author:</strong> Harper Lee</p>
+                <p><strong>Genre:</strong> Fiction</p>
+                <p><strong>Year of Release:</strong> 1960</p>
+                <p><strong>Reading Status:</strong> Unread</p>
+                <button onclick="addBookToLibrary('To Kill a Mockingbird', 'Harper Lee', 'Fiction', 1960, 'Unread')">Add Book</button>
+            </div>
+            <div class="book-item">
+                <p><strong>Title:</strong> 1984</p>
+                <p><strong>Author:</strong> George Orwell</p>
+                <p><strong>Genre:</strong> Dystopian</p>
+                <p><strong>Year of Release:</strong> 1949</p>
+                <p><strong>Reading Status:</strong> Unread</p>
+                <button onclick="addBookToLibrary('1984', 'George Orwell', 'Dystopian', 1949, 'Unread')">Add Book</button>
+            </div>
+            <div class="book-item">
+                <p><strong>Title:</strong> Pride and Prejudice</p>
+                <p><strong>Author:</strong> Jane Austen</p>
+                <p><strong>Genre:</strong> Classic</p>
+                <p><strong>Year of Release:</strong> 1813</p>
+                <p><strong>Reading Status:</strong> Unread</p>
+                <button onclick="addBookToLibrary('Pride and Prejudice', 'Jane Austen', 'Classic', 1813, 'Unread')">Add Book</button>
+            </div>
+            <div class="book-item">
+                <p><strong>Title:</strong> The Catcher in the Rye</p>
+                <p><strong>Author:</strong> J.D. Salinger</p>
+                <p><strong>Genre:</strong> Fiction</p>
+                <p><strong>Year of Release:</strong> 1951</p>
+                <p><strong>Reading Status:</strong> Unread</p>
+                <button onclick="addBookToLibrary('The Catcher in the Rye', 'J.D. Salinger', 'Fiction', 1951, 'Unread')">Add Book</button>
+            </div>
+            <div class="book-item">
+                <p><strong>Title:</strong> Moby-Dick</p>
+                <p><strong>Author:</strong> Herman Melville</p>
+                <p><strong>Genre:</strong> Adventure</p>
+                <p><strong>Year of Release:</strong> 1851</p>
+                <p><strong>Reading Status:</strong> Unread</p>
+                <button onclick="addBookToLibrary('Moby-Dick', 'Herman Melville', 'Adventure', 1851, 'Unread')">Add Book</button>
+            </div>
+            <div class="book-item">
+                <p><strong>Title:</strong> War and Peace</p>
+                <p><strong>Author:</strong> Leo Tolstoy</p>
+                <p><strong>Genre:</strong> Historical Fiction</p>
+                <p><strong>Year of Release:</strong> 1869</p>
+                <p><strong>Reading Status:</strong> Unread</p>
+                <button onclick="addBookToLibrary('War and Peace', 'Leo Tolstoy', 'Historical Fiction', 1869, 'Unread')">Add Book</button>
+            </div>
+            <div class="book-item">
+                <p><strong>Title:</strong> The Hobbit</p>
+                <p><strong>Author:</strong> J.R.R. Tolkien</p>
+                <p><strong>Genre:</strong> Fantasy</p>
+                <p><strong>Year of Release:</strong> 1937</p>
+                <p><strong>Reading Status:</strong> Unread</p>
+                <button onclick="addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 'Fantasy', 1937, 'Unread')">Add Book</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function addBookToLibrary(title, author, genre, year, status) {
+            const book = { title, author, genre, year, status };
+            let books = JSON.parse(localStorage.getItem('books')) || [];
+            
+            // Check if the book already exists in Local Storage
+            if (!books.some(b => b.title === title && b.author === author)) {
+                books.push(book);
+                localStorage.setItem('books', JSON.stringify(books));
+                alert('Book added to library!');
+            } else {
+                alert('Book is already in the library.');
+            }
+
+            // Redirect to the main page
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

@@ -2,13 +2,13 @@ const bookList = document.getElementById('book-list');
 const addBookForm = document.getElementById('add-book-form');
 const filterForm = document.getElementById('filter-form');
 
-let books = [
+let books = JSON.parse(localStorage.getItem('books')) || [
     { title: 'Harry Potter', author: 'J.K. Rowling', genre: 'Adventures', year: '2001', status: "Read" },
-    { title: 'The Sisters’', author: 'Claire Douglas', genre: 'Fantasy', year: '2014', status: "Almost read" },
+    { title: 'The Sisters', author: 'Claire Douglas', genre: 'Fantasy', year: '2014', status: "Almost read" },
 ];
-let editIndex = -1; // Змінна для збереження індексу книги, яку редагують
+let editIndex = -1; // Variable to store the index of the book being edited
 
-// Функція для відображення книг
+// Function to display books
 function displayBooks(filteredBooks) {
     bookList.innerHTML = '';
     const booksToDisplay = filteredBooks || books;
@@ -26,7 +26,7 @@ function displayBooks(filteredBooks) {
     });
 }
 
-// Функція для фільтрації книг
+// Function to filter books
 function filterBooks(event) {
     event.preventDefault();
     const filterTitle = document.getElementById('filter-title').value.toLowerCase();
@@ -39,7 +39,7 @@ function filterBooks(event) {
     displayBooks(filteredBooks);
 }
 
-// Функція для додавання або оновлення книги
+// Function to add a book to the library
 function addBook(event) {
     event.preventDefault();
     const title = document.getElementById('title').value;
@@ -56,6 +56,7 @@ function addBook(event) {
         } else {
             books.push(newBook);
         }
+        localStorage.setItem('books', JSON.stringify(books)); // Update local storage
         displayBooks();
         addBookForm.reset();
     } else {
@@ -63,13 +64,14 @@ function addBook(event) {
     }
 }
 
-// Функція для видалення книги
+// Function to remove a book
 function removeBook(index) {
     books.splice(index, 1);
+    localStorage.setItem('books', JSON.stringify(books)); // Update local storage
     displayBooks();
 }
 
-// Функція для редагування книги
+// Function to edit a book
 function editBook(index) {
     const book = books[index];
     document.getElementById('title').value = book.title;
@@ -80,19 +82,111 @@ function editBook(index) {
     editIndex = index;
 }
 
-// Додати події
+// Add event listeners
 addBookForm.addEventListener('submit', addBook);
 filterForm.addEventListener('submit', filterBooks);
 
-// Показати всі книги при завантаженні сторінки
-displayBooks();
+// Display books when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    displayBooks();
+    // JavaScript for modals
+    var registrationModal = document.getElementById("registration-modal");
+    var signInModal = document.getElementById("sign-in-modal");
+    var signupButton = document.getElementById("signup-link");
+    var signInButton = document.getElementById("signin-link");
+    var closeButtons = document.getElementsByClassName("close");
+    var switchToLogin = document.getElementById("switch-to-login");
+    var switchToRegister = document.getElementById("switch-to-register");
+    var registrationForm = document.getElementById("registration-form");
+    var signInForm = document.getElementById("sign-in-form");
+    var successMessage = document.getElementById("success-message");
+    var signInSuccessMessage = document.getElementById("sign-in-success-message");
 
+    if (signupButton) {
+        signupButton.onclick = function() {
+            registrationModal.style.display = "block";
+        }
+    }
+
+    if (signInButton) {
+        signInButton.onclick = function() {
+            signInModal.style.display = "block";
+        }
+    }
+
+    for (var i = 0; i < closeButtons.length; i++) {
+        closeButtons[i].onclick = function() {
+            registrationModal.style.display = "none";
+            signInModal.style.display = "none";
+        }
+    }
+
+    window.onclick = function(event) {
+        if (event.target == registrationModal || event.target == signInModal) {
+            registrationModal.style.display = "none";
+            signInModal.style.display = "none";
+        }
+    }
+
+    if (switchToLogin) {
+        switchToLogin.onclick = function() {
+            registrationModal.style.display = "none";
+            signInModal.style.display = "block";
+        }
+    }
+
+    if (switchToRegister) {
+        switchToRegister.onclick = function() {
+            signInModal.style.display = "none";
+            registrationModal.style.display = "block";
+        }
+    }
+
+    if (registrationForm) {
+        registrationForm.onsubmit = function(event) {
+            event.preventDefault();
+            var username = document.getElementById("reg-username").value;
+            var email = document.getElementById("reg-email").value;
+            var password = document.getElementById("reg-password").value;
+            console.log("Username:", username);
+            console.log("Email:", email);
+            console.log("Password:", password);
+            successMessage.style.display = "block";
+            registrationForm.style.display = "none";
+            setTimeout(function() {
+                registrationModal.style.display = "none";
+                successMessage.style.display = "none";
+                registrationForm.style.display = "block";
+            }, 3000);
+        };
+    }
+
+    if (signInForm) {
+        signInForm.onsubmit = function(event) {
+            event.preventDefault();
+            var email = document.getElementById("sign-in-email").value;
+            var password = document.getElementById("sign-in-password").value;
+            console.log("Email:", email);
+            console.log("Password:", password);
+            signInSuccessMessage.style.display = "block";
+            signInForm.style.display = "none";
+            setTimeout(function() {
+                signInModal.style.display = "none";
+                signInSuccessMessage.style.display = "none";
+                signInForm.style.display = "block";
+            }, 3000);
+        };
+    }
+});
+
+// Function to delete an author
 function deleteAuthor(event) {
     event.preventDefault();
     const authorToDelete = document.getElementById('delete-author').value.toLowerCase();
 
     if (authorToDelete) {
         books = books.filter(book => book.author.toLowerCase() !== authorToDelete);
+        localStorage.setItem('books', JSON.stringify(books)); // Update local storage
         displayBooks();
         document.getElementById('delete-author-form').reset();
     } else {
@@ -101,7 +195,7 @@ function deleteAuthor(event) {
 }
 document.getElementById('delete-author-form').addEventListener('submit', deleteAuthor);
 
-// Функція для конвертації книг у формат CSV
+// Function to convert books to CSV
 function convertBooksToCSV(books) {
     const header = 'Title,Author,Genre,Year of Release,Reading Status';
     const rows = books.map(book => 
@@ -110,7 +204,7 @@ function convertBooksToCSV(books) {
     return [header, ...rows].join('\n');
 }
 
-// Функція для завантаження CSV файлу
+// Function to download CSV file
 function downloadCSV(csv, filename = 'books.csv') {
     const csvFile = new Blob([csv], { type: 'text/csv' });
     const downloadLink = document.createElement('a');
@@ -122,7 +216,7 @@ function downloadCSV(csv, filename = 'books.csv') {
     document.body.removeChild(downloadLink);
 }
 
-// Додати подію для експорту книги
+// Add event listener for exporting books
 document.getElementById('export-books').addEventListener('click', () => {
     const csv = convertBooksToCSV(books);
     downloadCSV(csv);

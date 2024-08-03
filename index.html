@@ -5,13 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library Manager App</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://unpkg.com/intro.js/introjs.css">
     <link rel="shortcut icon" href="images/Favicon.png" type="image/x-icon">
 </head>
 <body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo-link">
+                <img src="./images/icons8-book.gif" alt="Logo" class="logo">
+                <span class="home-text">Home</span>
+            </a>
+            <ul>
+                <li><a href="./popular-books.html">Popular Books</a></li>
+                <li><a href="#register" id="signup-link">Sign up/Sign in</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <div class="container">
         <h1>Library Manager App</h1>
         <form id="add-book-form">
@@ -33,17 +46,79 @@
             <input type="text" id="delete-author" placeholder="Author to delete" required>
             <button type="submit">Delete Author</button>
         </form>
-        
 
         <button id="export-books">Export Books</button>
-
         <div id="book-list"></div>
     </div>
+
+    <!-- Registration Modal -->
+    <div id="registration-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="header-container">
+                <h2 id="modal-title">Sign Up</h2>
+                <img src="./images/icons8-book.gif" alt="" class="logotwo">
+            </div>
+            <div id="success-message" style="display: none; color: green; font-size: 18px; margin-bottom: 15px;">
+                You have successfully registered!
+            </div>
+            <form id="registration-form">
+                <input type="text" id="reg-username" placeholder="Username" required>
+                <input type="email" id="reg-email" placeholder="Email" required>
+                <input type="password" id="reg-password" placeholder="Password" required>
+                <button type="submit">Register</button>
+            </form>
+            <p>Already have an account? <a href="#" id="switch-to-login">Sign In</a></p>
+        </div>
+    </div>
+
+    <!-- Sign In Modal -->
+    <div id="sign-in-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="header-container">
+                <h2 id="modal-title">Sign In</h2>
+                <img src="./images/icons8-book.gif" alt="" class="logotwo">
+            </div>
+            <div id="sign-in-success-message" style="display: none; color: green; font-size: 18px; margin-bottom: 15px;">
+                You have successfully signed in!
+            </div>
+            <form id="sign-in-form">
+                <input type="email" id="sign-in-email" placeholder="Email" required>
+                <input type="password" id="sign-in-password" placeholder="Password" required>
+                <button type="submit">Sign In</button>
+            </form>
+            <p>Don't have an account? <a href="#" id="switch-to-register">Sign Up</a></p>
+        </div>
+    </div>
+
     <script src="script.js"></script>
     <script src="https://unpkg.com/intro.js/intro.js"></script>
-
     <script>
-        introJs.tour().setOptions({
+
+        function renderBooks() {
+            const bookList = document.getElementById('book-list');
+            let books = JSON.parse(localStorage.getItem('books')) || [];
+            bookList.innerHTML = '';
+
+            books.forEach(book => {
+                const bookItem = document.createElement('div');
+                bookItem.className = 'book-item';
+                bookItem.innerHTML = `
+                    <p><strong>Title:</strong> ${book.title}</p>
+                    <p><strong>Author:</strong> ${book.author}</p>
+                    <p><strong>Genre:</strong> ${book.genre}</p>
+                    <p><strong>Year of Release:</strong> ${book.year}</p>
+                    <p><strong>Reading Status:</strong> ${book.status}</p>
+                `;
+                bookList.appendChild(bookItem);
+            });
+        }
+
+        // Initial call to render books
+        renderBooks();
+
+        introJs().setOptions({
             steps: [
                 {
                     intro: "Welcome to the Library Manager App! Let's take a quick tour &#128521;"
@@ -62,14 +137,29 @@
                 },
                 {
                     element: document.querySelector('#year'),
-                    intro: 'Here, you need to enter the year of manufacture &#128541;'
+                    intro: 'Here, you need to enter the year of release of the book &#128526;'
                 },
                 {
                     element: document.querySelector('#status'),
-                    intro: 'Here, you need to enter your status of reading the book, for example: read, in progress or almost read or not interested &#129321; '
+                    intro: 'Here, you need to enter the reading status of the book &#128578;'
+                },
+                {
+                    element: document.querySelector('#book-list'),
+                    intro: 'Here you will see the list of books you have added &#128530;'
+                },
+                {
+                    element: document.querySelector('#filter-title'),
+                    intro: 'You can filter books by title here &#128577;'
+                },
+                {
+                    element: document.querySelector('#filter-author'),
+                    intro: 'You can filter books by author here &#128560;'
+                },
+                {
+                    element: document.querySelector('#export-books'),
+                    intro: 'Click this button to export your books to a CSV file &#128539;'
                 }
-            ],
-           
+            ]
         }).start();
     </script>
 </body>
