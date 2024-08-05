@@ -15,6 +15,7 @@ function displayBooks(filteredBooks) {
     booksToDisplay.forEach((book, index) => {
         const bookItem = document.createElement('div');
         bookItem.classList.add('book-item');
+        // Displaying book details with options to edit or remove
         bookItem.innerHTML = `<p><strong>Title:</strong> ${book.title}</p>
                               <p><strong>Author:</strong> ${book.author}</p>
                               <p><strong>Genre:</strong> ${book.genre}</p>
@@ -26,7 +27,7 @@ function displayBooks(filteredBooks) {
     });
 }
 
-// Function to filter books
+// Function to filter books by title or author
 function filterBooks(event) {
     event.preventDefault();
     const filterTitle = document.getElementById('filter-title').value.toLowerCase();
@@ -36,7 +37,7 @@ function filterBooks(event) {
         return (filterTitle === '' || book.title.toLowerCase().includes(filterTitle)) &&
                (filterAuthor === '' || book.author.toLowerCase().includes(filterAuthor));
     });
-    displayBooks(filteredBooks);
+    displayBooks(filteredBooks); // Displaying filtered books
 }
 
 // Function to add a book to the library
@@ -51,35 +52,36 @@ function addBook(event) {
     if (title && author && genre && year && status) {
         const newBook = { title, author, genre, year, status };
         if (editIndex >= 0) {
-            books[editIndex] = newBook;
+            books[editIndex] = newBook; // Updating existing book details
             editIndex = -1;
         } else {
-            books.push(newBook);
+            books.push(newBook); // Adding a new book to the library
         }
         localStorage.setItem('books', JSON.stringify(books)); // Update local storage
-        displayBooks();
-        addBookForm.reset();
+        displayBooks(); // Refreshing the displayed book list
+        addBookForm.reset(); // Resetting the form fields
     } else {
-        alert('Please fill in all fields.');
+        alert('Please fill in all fields.'); // Alert if any required field is empty
     }
 }
 
 // Function to remove a book
 function removeBook(index) {
-    books.splice(index, 1);
+    books.splice(index, 1); // Removing the selected book from the library
     localStorage.setItem('books', JSON.stringify(books)); // Update local storage
-    displayBooks();
+    displayBooks(); // Refreshing the displayed book list
 }
 
 // Function to edit a book
 function editBook(index) {
     const book = books[index];
+    // Populating form fields with existing book details for editing
     document.getElementById('title').value = book.title;
     document.getElementById('author').value = book.author;
     document.getElementById('genre').value = book.genre;
     document.getElementById('year').value = book.year;
     document.getElementById('status').value = book.status;
-    editIndex = index;
+    editIndex = index; // Storing the index of the book being edited
 }
 
 // Add event listeners
@@ -179,18 +181,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Function to delete an author
+// Function to delete an author and their books
 function deleteAuthor(event) {
     event.preventDefault();
     const authorToDelete = document.getElementById('delete-author').value.toLowerCase();
 
     if (authorToDelete) {
-        books = books.filter(book => book.author.toLowerCase() !== authorToDelete);
+        books = books.filter(book => book.author.toLowerCase() !== authorToDelete); // Deleting books by the specified author
         localStorage.setItem('books', JSON.stringify(books)); // Update local storage
-        displayBooks();
-        document.getElementById('delete-author-form').reset();
+        displayBooks(); // Refreshing the displayed book list
+        document.getElementById('delete-author-form').reset(); // Resetting the delete author form
     } else {
-        alert('Please enter an author name.');
+        alert('Please enter an author name.'); // Alert if no author name is entered
     }
 }
 document.getElementById('delete-author-form').addEventListener('submit', deleteAuthor);
@@ -218,6 +220,6 @@ function downloadCSV(csv, filename = 'books.csv') {
 
 // Add event listener for exporting books
 document.getElementById('export-books').addEventListener('click', () => {
-    const csv = convertBooksToCSV(books);
-    downloadCSV(csv);
+    const csv = convertBooksToCSV(books); // Converting books data to CSV format
+    downloadCSV(csv); // Initiating CSV download
 });
