@@ -51,46 +51,103 @@
         <div id="book-list"></div>
     </div>
 
-    <!-- Registration Modal -->
-    <div id="registration-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <div class="header-container">
-                <h2 id="modal-title">Sign Up</h2>
-                <img src="./images/icons8-book.gif" alt="" class="logotwo">
-            </div>
-            <div id="success-message" style="display: none; color: green; font-size: 18px; margin-bottom: 15px;">
-                You have successfully registered!
-            </div>
-            <form id="registration-form">
-                <input type="text" id="reg-username" placeholder="Username" required>
-                <input type="email" id="reg-email" placeholder="Email" required>
-                <input type="password" id="reg-password" placeholder="Password" required>
-                <button type="submit">Register</button>
-            </form>
-            <p>Already have an account? <a href="#" id="switch-to-login">Sign In</a></p>
-        </div>
+    <div id="reviews-section">
+        <h2>Book Reviews</h2>
+        <div id="reviews"></div>
+        <form id="add-review-form">
+            <label for="review-book">Select Book:</label>
+            <select id="review-book"></select>
+    
+            <label for="review-text">Your Review:</label>
+            <textarea id="review-text" required></textarea>
+    
+            <button type="submit">Submit Review</button>
+        </form>
     </div>
+    
 
-    <!-- Sign In Modal -->
-    <div id="sign-in-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <div class="header-container">
-                <h2 id="modal-title">Sign In</h2>
-                <img src="./images/icons8-book.gif" alt="" class="logotwo">
-            </div>
-            <div id="sign-in-success-message" style="display: none; color: green; font-size: 18px; margin-bottom: 15px;">
-                You have successfully signed in!
-            </div>
-            <form id="sign-in-form">
-                <input type="email" id="sign-in-email" placeholder="Email" required>
-                <input type="password" id="sign-in-password" placeholder="Password" required>
-                <button type="submit">Sign In</button>
-            </form>
-            <p>Don't have an account? <a href="#" id="switch-to-register">Sign Up</a></p>
+    <!-- Registration Modal -->
+<div id="registration-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="header-container">
+            <h2 id="modal-title">Sign Up</h2>
+            <img src="./images/icons8-book.gif" alt="" class="logotwo">
         </div>
+        <div id="success-message" style="display: none; color: green; font-size: 18px; margin-bottom: 15px;">
+            You have successfully registered!
+        </div>
+        <form id="registration-form">
+            <input type="text" id="reg-username" placeholder="Username" required>
+            <input type="email" id="reg-email" placeholder="Email" required>
+            <input type="password" id="reg-password" placeholder="Password" required>
+            <button type="submit">Register</button>
+        </form>
+        <p>Already have an account? <a href="#" id="switch-to-login">Sign In</a></p>
     </div>
+</div>
+
+<!-- Sign In Modal -->
+<div id="sign-in-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="header-container">
+            <h2 id="modal-title">Sign In</h2>
+            <img src="./images/icons8-book.gif" alt="" class="logotwo">
+        </div>
+        <div id="sign-in-success-message" style="display: none; color: green; font-size: 18px; margin-bottom: 15px;">
+            You have successfully signed in!
+        </div>
+        <form id="sign-in-form">
+            <input type="email" id="sign-in-email" placeholder="Email" required>
+            <input type="password" id="sign-in-password" placeholder="Password" required>
+            <button type="submit">Sign In</button>
+        </form>
+        <p>Don't have an account? <a href="#" id="switch-to-register">Sign Up</a></p>
+    </div>
+</div>
+
+    <footer>
+        <div class="footer-container">
+          <div class="footer-section">
+            <h3>About Us</h3>
+            <p>Welcome to the ultimate book library app! Here, you can manage your personal library, discover new books, and share reviews with others. Whether you're a passionate reader or a casual book lover, we've got something for everyone!</p>
+          </div>
+      
+          <div class="footer-section">
+            <h3>Useful Links</h3>
+            <ul>
+              <li><a href="#home">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact Us</a></li>
+              <li><a href="#privacy-policy">Privacy Policy</a></li>
+            </ul>
+          </div>
+      
+          <div class="footer-section">
+            <h3>Connect with Us</h3>
+            <p>Stay connected with us for the latest updates and book recommendations.</p>
+            <div class="social-media">
+              <a href="#" class="social-icon" target="_blank"><img src="./images/facebook.png" alt="Facebook"></a>
+              <a href="#" class="social-icon" target="_blank"><img src="./images/twitter.png" alt="Twitter"></a>
+              <a href="#" class="social-icon" target="_blank"><img src="./images/instagram.png" alt="Instagram"></a>
+            </div>
+          </div>
+      
+          <div class="footer-section">
+            <h3>Quick Help</h3>
+            <ul>
+              <li><a href="#faq">FAQ</a></li>
+              <li><a href="#terms">Terms & Conditions</a></li>
+              <li><a href="#support">Support</a></li>
+            </ul>
+          </div>
+        </div>
+      
+        <div class="footer-bottom">
+          <p>&copy; 2024 Book Library App | All Rights Reserved</p>
+        </div>
+      </footer>
 
     <script src="script.js"></script>
     <script src="https://unpkg.com/intro.js/intro.js"></script>
@@ -145,15 +202,15 @@
                 },
                 {
                     element: document.querySelector('#book-list'),
-                    intro: 'Here you will see the list of books you have added &#128519;'
+                    intro: 'Here you will see the list of books you have added &#128530;'
                 },
                 {
                     element: document.querySelector('#filter-title'),
-                    intro: 'You can filter books by title here 	&#128521;'
+                    intro: 'You can filter books by title here &#128577;'
                 },
                 {
                     element: document.querySelector('#filter-author'),
-                    intro: 'You can filter books by author here &#128524;'
+                    intro: 'You can filter books by author here &#128560;'
                 },
                 {
                     element: document.querySelector('#export-books'),
@@ -161,6 +218,9 @@
                 }
             ]
         }).start();
+
+
+        /* NEW */
     </script>
 </body>
 </html>

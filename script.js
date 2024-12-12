@@ -223,3 +223,84 @@ document.getElementById('export-books').addEventListener('click', () => {
     const csv = convertBooksToCSV(books); // Converting books data to CSV format
     downloadCSV(csv); // Initiating CSV download
 });
+
+
+/* NEW */
+
+const reviewsSection = document.getElementById('reviews');
+const addReviewForm = document.getElementById('add-review-form');
+const reviewBookSelect = document.getElementById('review-book');
+
+let reviews = JSON.parse(localStorage.getItem('reviews')) || []; // Завантаження відгуків із localStorage
+
+// Оновлення списку книг у формі відгуків
+function updateBookOptions() {
+    reviewBookSelect.innerHTML = '';
+    books.forEach((book, index) => {
+        const option = document.createElement('option');
+        option.value = index;
+        option.textContent = book.title;
+        reviewBookSelect.appendChild(option);
+    });
+}
+
+// Відображення відгуків з кнопкою для видалення
+function displayReviews() {
+    reviewsSection.innerHTML = '';
+    reviews.forEach((review, index) => {
+        const reviewItem = document.createElement('div');
+        reviewItem.classList.add('review-item');
+        reviewItem.innerHTML = `
+            <p><strong>Book:</strong> ${books[review.bookIndex].title}</p>
+            <p><strong>Review:</strong> ${review.text}</p>
+            <button class="delete-review" data-index="${index}">Delete Review</button>
+        `;
+        reviewsSection.appendChild(reviewItem);
+    });
+
+    // Додаємо обробку кліку для кнопок видалення
+    const deleteButtons = document.querySelectorAll('.delete-review');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', deleteReview);
+    });
+}
+
+// Додавання нового відгуку
+function addReview(event) {
+    event.preventDefault();
+    const bookIndex = reviewBookSelect.value;
+    const reviewText = document.getElementById('review-text').value;
+
+    if (bookIndex && reviewText) {
+        const newReview = { bookIndex: parseInt(bookIndex, 10), text: reviewText };
+        reviews.push(newReview);
+        localStorage.setItem('reviews', JSON.stringify(reviews)); // Збереження у localStorage
+        displayReviews(); // Оновлення списку відгуків
+        addReviewForm.reset(); // Очищення форми
+    } else {
+        alert('Please fill in all fields.');
+    }
+}
+
+// Видалення відгуку
+function deleteReview(event) {
+    const indexToDelete = event.target.getAttribute('data-index');
+    reviews.splice(indexToDelete, 1); // Видаляємо відгук з масиву
+    localStorage.setItem('reviews', JSON.stringify(reviews)); // Оновлюємо localStorage
+    displayReviews(); // Оновлюємо відображення відгуків
+}
+
+// Ініціалізація
+document.addEventListener('DOMContentLoaded', () => {
+    updateBookOptions(); // Оновлення списку книг
+    displayReviews(); // Відображення відгуків
+});
+
+// Обробка подій
+addReviewForm.addEventListener('submit', addReview);
+
+
+
+
+/* very new */
+

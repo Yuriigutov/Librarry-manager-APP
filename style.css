@@ -4,6 +4,7 @@ body {
     background-color: #f0f0f0;
     background-image: url(./images/Cloud-Background.jpg);
     animation: Backgroundmove 50s linear infinite;
+    margin: 0px;
 }
 
 
@@ -247,3 +248,99 @@ h1 {
     font-size: 18px;
     margin-bottom: 15px;
 }
+
+
+/* NEW reviews */
+#reviews-section {
+    margin-top: 20px;
+    padding: 10px;
+    border-top: 2px solid #ccc;
+}
+#reviews .review-item {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+
+/* footer */
+/*
+
+*/
+footer {
+    background-color: #2C3E50;
+    color: #fff;
+    padding: 40px 0;
+    font-family: Arial, sans-serif;
+    margin: -8px;
+  }
+
+  .footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin-bottom: 20px;
+    margin: 0px;
+    margin-left: 10px;
+  }
+
+  .footer-section {
+    flex: 1;
+    min-width: 220px;
+  }
+
+  .footer-section h3 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+  }
+
+  .footer-section p {
+    font-size: 1em;
+    line-height: 1.6;
+  }
+
+  .footer-section ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .footer-section ul li {
+    margin-bottom: 10px;
+  }
+
+  .footer-section ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1em;
+  }
+
+  .footer-section ul li a:hover {
+    text-decoration: underline;
+  }
+
+  .social-media {
+    margin-top: 10px;
+  }
+
+  .social-icon {
+    margin-right: 15px;
+  }
+
+  .social-icon img {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s ease;
+  }
+
+  .social-icon img:hover {
+    transform: scale(1.1);
+  }
+
+  .footer-bottom {
+    text-align: center;
+    padding: 10px;
+    background-color: #34495E;
+    font-size: 1em;
+  }
